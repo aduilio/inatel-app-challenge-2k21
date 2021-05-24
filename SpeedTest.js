@@ -59,16 +59,8 @@ Server.get('/getIP', function (req, res) {
         else {
             request('https://ipinfo.io/json', function (err, body, serverData) {
                 serverData = JSON.parse(serverData);
-                if (err) res.send(`${requestIP} - ${ipData.org}, ${ipData.country}`)
-                else res.send(`${ipData.city} - ${ipData.region} - ${ipData.country} \n ${ipData.company.name} (${ipData.company.domain})`)
-                /*
-                else if (ipData.loc && serverData.loc) {
-                    const d = helpers.calcDistance(ipData.loc.split(','), serverData.loc.split(','));
-                    res.send(`${requestIP} - ${ipData.org}, ${ipData.country} (${d}km)`);
-                } else {
-                    res.send(`${requestIP} - ${ipData.org}, ${ipData.country}`);
-                }
-                */
+                if (err) res.send(`${requestIP}`)
+                else res.send(`${ipData.city} - ${ipData.region} - ${ipData.country}<br>${ipData.org}`)
             })
         }
     });
