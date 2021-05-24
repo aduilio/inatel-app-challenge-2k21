@@ -1,0 +1,25 @@
+{
+  "name": "ViasatSpeedtest",
+  "version": "0.0.1",
+  "description": "A PWA speed test application",
+  "main": "Speedtest.js",
+  "repository": "https://github.com/aduilio/inatel-app-challenge-2k21",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node SpeedTest.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "cors": "^2.8.5",
+    "gps-distance": "^0.0.4",
+    "random-bytes": "^1.0.0",
+    "request": "^2.85.0"
+  },
+  "pkg": {
+    "assets": [
+      "public/**/*"
+    ]
+  },
+  "bin": "SpeedTest.js"
+}

@@ -1,0 +1,17 @@
+{
+    "name": "ViaSat Speedtest",
+    "short_name": "Viasat Speedtest",
+    "description": "App Challenge Inatel 2021",
+    "theme_color": "#008DCA",
+    "theme-color": "#008DCA",
+    "background_color": "#008DCA",
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/../images/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
