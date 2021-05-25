@@ -113,7 +113,7 @@ function updateUI(forced){
 	    I("dlText").textContent=format(uiData.dlStatus);
 	}
 
-	if (forced) {
+	if (status != 3) {
 	    I("ulText").textContent=format(uiData.ulStatus)
 	}
 	
