@@ -275,6 +275,36 @@ function initUI(){
 	#test.hide {
 		display: none;
 	}
+	#diagnosis {
+		margin-top: 2em;
+	}
+	#diagnosis.hide {
+		display: none;
+	}
+	#diagnosis div.infoSubGroup{
+		margin: 0.1em;
+	}
+	div.infoSubGroup div.diagnosisStatusOK{
+		display:inline-block;
+		font-size:1.5em;
+		color:green;
+	}
+	div.infoSubGroup div.diagnosisStatusOK:before{
+		content: "\2714";
+	}
+	div.infoSubGroup div.diagnosisStatusFail{
+		display:inline-block;
+		font-size:1.5em;
+		color:red;
+	}
+	div.infoSubGroup div.diagnosisStatusFail:before{
+		content: "\2718";
+	}
+	div.infoSubGroup div.diagnosisName{
+		display:inline-block;
+		text-align:center;
+		font-size:1.2em;
+	}
 	@media all and (max-width:40em){
 		body{
 			font-size:0.8em;
@@ -344,6 +374,53 @@ function initUI(){
 	</div>
 
 	<div id="startStopBtn" onclick="startStop()"></div>
+
+	<div id="diagnosis" class="hide">
+
+		<h3>Diagnosis</h3>
+	
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div id="emailStatus" class="diagnosisStatusOK"></div>
+				<div class="diagnosisName">Emails and simple pages</div>
+			</div>
+		</div>
+	
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div id="audioStatus" class="diagnosisStatusFail"></div>
+				<div class="diagnosisName">Audio calls</div>
+			</div>
+		</div>
+	
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div id="videoStatus" class="diagnosisStatusOK"></div>
+				<div class="diagnosisName">Videos</div>
+			</div>
+		</div>
+	
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div id="gameStatus" class="diagnosisStatusFail"></div>
+				<div class="diagnosisName">Online games</div>
+			</div>
+		</div>
+	
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div id="callStatus" class="diagnosisStatusFail"></div>
+				<div class="diagnosisName">Video calls</div>
+			</div>
+		</div>
+	
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div id="hdVideoStatus" class="diagnosisStatusFail"></div>
+				<div class="diagnosisName">HD Videos</div>
+			</div>
+		</div>
+	</div>
 </div>
 <footer>
 	<a href="https://github.com/aduilio/inatel-app-challenge-2k21" target="_blank">Source code</a>
