@@ -119,6 +119,15 @@ function updateUI(forced){
 	
 	I("pingText").textContent=format(uiData.pingStatus)
 	I("jitText").textContent=format(uiData.jitterStatus)
+
+	if (status == 4) {
+	    diagnosis(uiData)
+		I("diagnosis").className="";
+	}
+
+	if (status == 0) {
+		I("diagnosis").className="hide";
+	}
 }
 function oscillate(){
 	return 1+0.02*Math.sin(Date.now()/100);
@@ -139,6 +148,22 @@ function initUI(){
 	I("jitText").textContent="";
 	I("locationInfo").textContent="";
 	I("ispInfo").textContent="";
+}
+function diagnosis(uiData){
+	I("emailStatus").className="diagnosisStatusOK"
+	I("audioStatus").className="diagnosisStatusOK"
+	I("videoStatus").className="diagnosisStatusOK"
+	I("gameStatus").className="diagnosisStatusOK"
+	I("callStatus").className="diagnosisStatusOK"
+	I("hdVideoStatus").className="diagnosisStatusOK"
+
+	var download = format(uiData.dlStatus)
+	if (download < 25.0) I("hdVideoStatus").className="diagnosisStatusFail"
+	if (download < 15.0) I("callStatus").className="diagnosisStatusFail"
+	if (download < 10.0) I("gameStatus").className="diagnosisStatusFail"
+	if (download < 5.0) I("videoStatus").className="diagnosisStatusFail"
+	if (download < 2.0) I("audioStatus").className="diagnosisStatusFail"
+	if (download < 1.0) I("emailStatus").className="diagnosisStatusFail"
 }
 </script>
 <style type="text/css">
