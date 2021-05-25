@@ -65,6 +65,7 @@ function startStop(){
 		initUI();
 	}else{
 		//test is not running, begin
+		initUI();
 		I("startStopBtn").className="running";
 		s.onupdate=function(data){
             uiData=data;
@@ -82,19 +83,39 @@ function updateUI(forced){
 	if(uiData==null) return;
 	var status=uiData.testState;
 
-	var userInfo = uiData.clientIp.split("<br>")
-	I("ispInfo").textContent="nao deu"
+	var userInfo = uiData.clientIp.split('<br>')
 	I("locationInfo").textContent=userInfo[0]
 	if (userInfo.length > 1) {
 	    I("ispInfo").textContent=userInfo[1]
 	}
 
-	I("dlText").textContent=(status==1&&uiData.dlStatus==0)?"...":format(uiData.dlStatus);
-	drawMeter(I("dlMeter"),mbpsToAmount(Number(uiData.dlStatus*(status==1?oscillate():1))),meterBk,dlColor,Number(uiData.dlProgress),progColor);
-	I("ulText").textContent=(status==3&&uiData.ulStatus==0)?"...":format(uiData.ulStatus);
-	drawMeter(I("ulMeter"),mbpsToAmount(Number(uiData.ulStatus*(status==3?oscillate():1))),meterBk,ulColor,Number(uiData.ulProgress),progColor);
-	I("pingText").textContent=format(uiData.pingStatus);
-	I("jitText").textContent=format(uiData.jitterStatus);
+	switch (status) {
+		case 1:  
+		    I("testName").textContent="Download"
+			drawMeter(I("testMeter"),mbpsToAmount(Number(uiData.dlStatus*oscillate())),meterBk,dlColor,Number(uiData.dlProgress),progColor);
+			I("testText").textContent=(uiData.dlStatus==0)?"...":format(uiData.dlStatus)
+		    break
+	    case 3:
+		    I("testName").textContent="Upload"
+			drawMeter(I("testMeter"),mbpsToAmount(Number(uiData.ulStatus*oscillate())),meterBk,ulColor,Number(uiData.ulProgress),progColor);
+			I("testText").textContent=(uiData.ulStatus==0)?"...":format(uiData.ulStatus)
+			break
+		default:
+		    I("testName").textContent=""
+			I("testText").textContent=""
+			drawMeter(I("testMeter"),0,meterBk,dlColor,0);
+	}
+
+	if (status != 1) {
+	    I("dlText").textContent=format(uiData.dlStatus);
+	}
+
+	if (forced) {
+	    I("ulText").textContent=format(uiData.ulStatus)
+	}
+	
+	I("pingText").textContent=format(uiData.pingStatus)
+	I("jitText").textContent=format(uiData.jitterStatus)
 }
 function oscillate(){
 	return 1+0.02*Math.sin(Date.now()/100);
@@ -108,8 +129,7 @@ function frame(){
 frame(); //start frame loop
 //function to (re)initialize UI
 function initUI(){
-	drawMeter(I("dlMeter"),0,meterBk,dlColor,0);
-	drawMeter(I("ulMeter"),0,meterBk,ulColor,0);
+	drawMeter(I("testMeter"),0,meterBk,dlColor,0);
 	I("dlText").textContent="";
 	I("ulText").textContent="";
 	I("pingText").textContent="";
@@ -161,7 +181,7 @@ function initUI(){
 	}
 	#test{
 		margin-top:2em;
-		margin-bottom:12em;
+		margin-bottom:2em;
 	}
 	div.testArea{
 		display:inline-block;
@@ -170,13 +190,15 @@ function initUI(){
 		position:relative;
 		box-sizing:border-box;
 	}
-	div.testArea2{
+	
+	div.infoSubGroup{
 		display:inline-block;
-		width:14em;
-		height:7em;
+		width:auto;
+		height:auto;
 		position:relative;
 		box-sizing:border-box;
 		text-align:center;
+		margin: 0.5em;
 	}
 	div.testArea div.testName{
 		position:absolute;
@@ -185,32 +207,36 @@ function initUI(){
 		font-size:1.4em;
 		z-index:9;
 	}
-	div.testArea2 div.testName{
-        display:block;
+	div.infoSubGroup div.infoName{
+        display:inline-block;
         text-align:center;
         font-size:1.4em;
 	}
-	div.testArea div.meterText{
+	div.testArea div.testText{
 		position:absolute;
-		bottom:1.55em; left:0;
+		bottom:1.8em; left:0;
 		width:100%;
 		font-size:2.5em;
 		z-index:9;
 	}
-	div.testArea2 div.meterText{
-        display:inline-block;
-        font-size:2.5em;
-	}
-	div.meterText:empty:before{
+	div.testText:empty:before{
 		content:"0.00";
 	}
-	div.testArea div.unit{
+	div.infoSubGroup div.infoText{
+        display:inline-block;
+        font-size:1.5em;
+	}
+	div.infoText:empty:before{
+		content:"0.00";
+	}
+	div.testArea div.testUnit{
 		position:absolute;
-		bottom:2em; left:0;
+		bottom:1.8em; left:0;
 		width:100%;
+		font-size:1.4em;
 		z-index:9;
 	}
-	div.testArea2 div.unit{
+	div.infoSubGroup div.infoUnit{
 		display:inline-block;
 	}
 	div.testArea canvas{
@@ -219,6 +245,10 @@ function initUI(){
 		z-index:1;
 	}
 	div.testGroup{
+		display:block;
+        margin: 0 auto;
+	}
+	div.infoGroup{
 		display:block;
         margin: 0 auto;
 	}
@@ -232,39 +262,52 @@ function initUI(){
 </head>
 <body>
 <h1>Viasat Speedtest</h1>
-<div id="testWrapper">
+<div id="wrapper">
 	<div id="startStopBtn" onclick="startStop()"></div>
 	<div id="test">
-        <div class="testGroup">
-			<div class="testArea2">
-				<div class="testName">Ping</div>
-				<div id="pingText" class="meterText" style="color:#AA6060"></div>
-				<div class="unit">ms</div>
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div class="infoName">Location: </div>
+				<span id="locationInfo" class="infoText"></span>
 			</div>
-			<div class="testArea2">
-				<div class="testName">Jitter</div>
-				<div id="jitText" class="meterText" style="color:#AA6060"></div>
-				<div class="unit">ms</div>
+		</div>
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div class="infoName">ISP: </div>
+				<span id="ispInfo"  class="infoText"></span>
+			</div>
+		</div>
+        <div class="infoGroup">
+			<div class="infoSubGroup">
+				<div class="infoName">Ping: </div>
+				<div id="pingText" class="infoText" style="color:#AA6060"></div>
+				<div class="infoUnit">ms</div>
+			</div>
+			<div class="infoSubGroup">
+				<div class="infoName">Jitter: </div>
+				<div id="jitText" class="infoText" style="color:#AA6060"></div>
+				<div class="infoUnit">ms</div>
+			</div>
+		</div>
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<div class="infoName">Download: </div>
+				<div id="dlText" class="infoText" style="color:#AA6060"></div>
+				<div class="infoUnit">Mbps</div>
+			</div>
+			<div class="infoSubGroup">
+				<div class="infoName">Upload: </div>
+				<div id="ulText" class="infoText" style="color:#AA6060"></div>
+				<div class="infoUnit">Mbps</div>
 			</div>
 		</div>
 		<div class="testGroup">
 			<div class="testArea">
-				<div class="testName">Download</div>
-				<canvas id="dlMeter" class="meter"></canvas>
-				<div id="dlText" class="meterText"></div>
-				<div class="unit">Mbps</div>
+				<div id="testName" class="testName"></div>
+				<canvas id="testMeter"></canvas>
+				<div id="testText" class="testText"></div>
+				<div class="testUnit">Mbps</div>
 			</div>
-			<div class="testArea">
-				<div class="testName">Upload</div>
-				<canvas id="ulMeter" class="meter"></canvas>
-				<div id="ulText" class="meterText"></div>
-				<div class="unit">Mbps</div>
-			</div>
-		</div>
-		<div id="userInfo">
-			<span id="locationInfo"></span>
-			<br>
-			<span id="ispInfo"></span>
 		</div>
 	</div>
 	<a href="https://github.com/aduilio/inatel-app-challenge-2k21" target="_blank">Source code</a>
