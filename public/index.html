@@ -169,19 +169,27 @@ function diagnosis(uiData){
 <style type="text/css">
 	html,body{
 		border:none; padding:0; margin:0;
-		background:#FFFFFF;
+		background:#eeeeee;
 		color:#202020;
 	}
 	body{
 		text-align:center;
 		font-family:"Roboto",sans-serif;
 	}
-	h1{
-		color:#404040;
-	}
+	h2{
+    	color:#404040;
+    }
+    h2.header{
+    	color: #1F3743;
+        background-color: #00AEEF;
+        background-image: linear-gradient(to right, #1D434C,#0E627C,#0092CB,#00AEEF,#B3D451,#CBDC2E);
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0.5em;
+    }
 	footer {
         text-align:center;
-        padding:3px;
+        padding:0.5em;
 	    margin:2em;
     }
 	#startStopBtn{
@@ -211,9 +219,6 @@ function diagnosis(uiData){
 	}
 	#startStopBtn.running:before{
 		content:"Abort";
-	}
-	#test{
-		margin-top:2em;
 	}
 	div.testArea{
 		display:inline-block;
@@ -297,6 +302,9 @@ function diagnosis(uiData){
 	#logo.hide {
 		display: none;
 	}
+	#test{
+		margin-top:0.5em;
+	}
 	#test.hide {
 		display: none;
 	}
@@ -340,7 +348,7 @@ function diagnosis(uiData){
 <title>Viasat Speedtest</title>
 </head>
 <body>
-<h2>Viasat Speedtest</h2>
+<h2 class="header">Viasat Speedtest</h2>
 <div id="wrapper">
 
 	<div id="logo">
