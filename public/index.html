@@ -64,6 +64,9 @@ function startStop(){
 		I("startStopBtn").className="";
 		initUI();
 	}else{
+		I("logo").className="hide";
+		I("test").className="";
+
 		//test is not running, begin
 		initUI();
 		I("startStopBtn").className="running";
@@ -151,9 +154,15 @@ function initUI(){
 	h1{
 		color:#404040;
 	}
+	footer {
+        text-align:center;
+        padding:3px;
+	    margin:2em;
+    }
 	#startStopBtn{
-		display:inline-block;
+		display:block;
 		margin:0 auto;
+		margin-top:1em;
 		color:#6060AA;
 		background-color:rgba(0,0,0,0);
 		border:0.15em solid #6060FF;
@@ -169,9 +178,8 @@ function initUI(){
 		box-shadow: 0 0 2em rgba(0,0,0,0.1), inset 0 0 1em rgba(0,0,0,0.1);
 	}
 	#startStopBtn.running{
-		background-color:#FF3030;
 		border-color:#FF6060;
-		color:#FFFFFF;
+		color:#914a4a;
 	}
 	#startStopBtn:before{
 		content:"Start";
@@ -181,16 +189,14 @@ function initUI(){
 	}
 	#test{
 		margin-top:2em;
-		margin-bottom:2em;
 	}
 	div.testArea{
 		display:inline-block;
-		width:16em;
-		height:12.5em;
+		width:14em;
+		height:12em;
 		position:relative;
 		box-sizing:border-box;
 	}
-	
 	div.infoSubGroup{
 		display:inline-block;
 		width:auto;
@@ -204,7 +210,7 @@ function initUI(){
 		position:absolute;
 		top:0.1em; left:0;
 		width:100%;
-		font-size:1.4em;
+		font-size:1.2em;
 		z-index:9;
 	}
 	div.infoSubGroup div.infoName{
@@ -224,10 +230,14 @@ function initUI(){
 	}
 	div.infoSubGroup div.infoText{
         display:inline-block;
-        font-size:1.5em;
+        font-size:1.4em;
 	}
 	div.infoText:empty:before{
 		content:"0.00";
+	}
+	div.infoSubGroup div.locationText{
+        display:inline-block;
+        font-size:1em;
 	}
 	div.testArea div.testUnit{
 		position:absolute;
@@ -241,7 +251,10 @@ function initUI(){
 	}
 	div.testArea canvas{
 		position:absolute;
-		top:0; left:0; width:100%; height:100%;
+		top:0; 
+		left:0; 
+		width:100%; 
+		height:100%;
 		z-index:1;
 	}
 	div.testGroup{
@@ -252,31 +265,39 @@ function initUI(){
 		display:block;
         margin: 0 auto;
 	}
+	.imgLogo {
+        width: 50%;
+        height: auto;
+    }
+	#logo.hide {
+		display: none;
+	}
+	#test.hide {
+		display: none;
+	}
 	@media all and (max-width:40em){
 		body{
 			font-size:0.8em;
 		}
 	}
+
 </style>
 <title>Viasat Speedtest</title>
 </head>
 <body>
-<h1>Viasat Speedtest</h1>
+<h2>Viasat Speedtest</h2>
 <div id="wrapper">
-	<div id="startStopBtn" onclick="startStop()"></div>
-	<div id="test">
-		<div class="infoGroup">
+
+	<div id="logo">
+	    <div class="infoGroup">
 			<div class="infoSubGroup">
-				<div class="infoName">Location: </div>
-				<span id="locationInfo" class="infoText"></span>
+				<img class="imgLogo" src="images/icon-512x512.png"/>
 			</div>
 		</div>
-		<div class="infoGroup">
-			<div class="infoSubGroup">
-				<div class="infoName">ISP: </div>
-				<span id="ispInfo"  class="infoText"></span>
-			</div>
-		</div>
+	</div>
+	
+	<div id="test" class="hide">
+		
         <div class="infoGroup">
 			<div class="infoSubGroup">
 				<div class="infoName">Ping: </div>
@@ -309,9 +330,24 @@ function initUI(){
 				<div class="testUnit">Mbps</div>
 			</div>
 		</div>
+
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<span id="locationInfo" class="locationText"></span>
+			</div>
+		</div>
+		<div class="infoGroup">
+			<div class="infoSubGroup">
+				<span id="ispInfo" class="locationText"></span>
+			</div>
+		</div>
 	</div>
-	<a href="https://github.com/aduilio/inatel-app-challenge-2k21" target="_blank">Source code</a>
+
+	<div id="startStopBtn" onclick="startStop()"></div>
 </div>
+<footer>
+	<a href="https://github.com/aduilio/inatel-app-challenge-2k21" target="_blank">Source code</a>
+</footer>
 <script type="text/javascript">setTimeout(function(){initUI()},100);</script>
 </body>
 </html>
