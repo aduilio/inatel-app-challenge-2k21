@@ -5,16 +5,18 @@ The proposed challenge: create an app to provide connection speed tests. The app
 
 This project was based on the [PWA-Framework-Speedtest](https://github.com/Viasat/PWA-Framework-Speedtest)
 
+This application provides information about download and updaload rates, ping and jitter.
+
 The app has a responsive interface to fit computer and smartphones screens:
 
-https://user-images.githubusercontent.com/7264464/119730293-f0666880-be4b-11eb-9da7-f94b9618f0e6.mov
+This application provides information about download and upload rates, ping and jitter. After testing the connection, it provides a diagnosis of what the network supports.
+
+It has a responsive interface to fit computer and smartphones screens:
+
+![image](https://user-images.githubusercontent.com/7264464/119735095-3a524d00-be52-11eb-92e7-b3e65f16b639.png)
 
 
-As the app is a PWA it can be download to the smartphone:
+
+As it is a PWA it can be download to the smartphone:
 
 https://user-images.githubusercontent.com/7264464/119730480-23a8f780-be4c-11eb-9892-a569e0921804.mp4
-
-
-After testing the connection, the app provides a diagnosis of what the network supports:
-
-![Sem Título](https://user-images.githubusercontent.com/7264464/119732812-104b5b80-be4f-11eb-9059-08d8772e618f.jpg)
