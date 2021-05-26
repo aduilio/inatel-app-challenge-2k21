@@ -60,7 +60,15 @@ Server.get('/getIP', function (req, res) {
             request('https://ipinfo.io/json', function (err, body, serverData) {
                 serverData = JSON.parse(serverData);
                 if (err) res.send(`${requestIP}`)
-                else res.send(`${ipData.city} - ${ipData.region} - ${ipData.country}<br>${ipData.org}`)
+                else {
+                    var isp
+                    if (ipData.company != null) {
+                        isp = `${ipData.company.name} (${ipData.company.domain})`
+                    } else {
+                        isp = ipData.org
+                    }
+                    res.send(`${ipData.city} - ${ipData.region} - ${ipData.country}<br>${isp}`)
+                }
             })
         }
     });
