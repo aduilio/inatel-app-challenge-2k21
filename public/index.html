@@ -166,6 +166,9 @@ function diagnosis(uiData){
 	if (download < 5.0) I("videoStatus").className="diagnosisStatusFail"
 	if (download < 2.0) I("audioStatus").className="diagnosisStatusFail"
 	if (download < 1.0) I("emailStatus").className="diagnosisStatusFail"
+
+	if (download < 25.0 || ping > 100) I("tips").className=""
+	else I("tips").className="hide"
 }
 </script>
 <style type="text/css">
@@ -312,13 +315,22 @@ function diagnosis(uiData){
 		display: none;
 	}
 	#diagnosis {
-		margin-top: 2em;
+		margin: 2em;
 	}
 	#diagnosis.hide {
 		display: none;
 	}
+	#diagnosis h3 {
+		margin-bottom: 0.1em;
+	}
 	#diagnosis div.infoSubGroup{
 		margin: 0.1em;
+	}
+	#tips {
+		margin-top: 2em;
+	}
+	#tips.hide {
+		display: none;
 	}
 	div.infoSubGroup div.diagnosisStatusOK{
 		display:inline-block;
@@ -454,6 +466,22 @@ function diagnosis(uiData){
 				<div id="hdVideoStatus" class="diagnosisStatusFail"></div>
 				<div class="diagnosisName">HD Videos</div>
 			</div>
+		</div>
+
+		<div id="tips">
+
+			<h3>Tips</h3>
+
+		    <div class="infoGroup">
+			    <div class="infoSubGroup">
+					<p class="diagnosisName">Perform a new test using a wired connection.</p>
+					<p class="diagnosisName">Check the strength of the wireless network.</p>
+					<p class="diagnosisName">Check the location of the router.</p>
+					<p class="diagnosisName">Make sure the router is up to date.</p>
+					<p class="diagnosisName">Restart your router.</p>
+			    </div>
+		    </div>
+
 		</div>
 	</div>
 </div>
