@@ -99,6 +99,7 @@ function updateUI(forced){
 			I("testText").textContent=(uiData.dlStatus==0)?"...":format(uiData.dlStatus)
 		    break
 	    case 3:
+			console.log(uiData.ulStatus)
 		    I("testName").textContent="Upload"
 			drawMeter(I("testMeter"),mbpsToAmount(Number(uiData.ulStatus*oscillate())),meterBk,ulColor,Number(uiData.ulProgress),progColor);
 			I("testText").textContent=(uiData.ulStatus==0)?"...":format(uiData.ulStatus)
@@ -158,9 +159,10 @@ function diagnosis(uiData){
 	I("hdVideoStatus").className="diagnosisStatusOK"
 
 	var download = format(uiData.dlStatus)
+	var ping = format(uiData.pingStatus)
 	if (download < 25.0) I("hdVideoStatus").className="diagnosisStatusFail"
-	if (download < 15.0) I("callStatus").className="diagnosisStatusFail"
-	if (download < 10.0) I("gameStatus").className="diagnosisStatusFail"
+	if (download < 15.0 || ping > 100) I("callStatus").className="diagnosisStatusFail"
+	if (download < 10.0 || ping > 100) I("gameStatus").className="diagnosisStatusFail"
 	if (download < 5.0) I("videoStatus").className="diagnosisStatusFail"
 	if (download < 2.0) I("audioStatus").className="diagnosisStatusFail"
 	if (download < 1.0) I("emailStatus").className="diagnosisStatusFail"
