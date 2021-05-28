@@ -15,7 +15,9 @@ It has a responsive interface to fit computer and smartphones screens:
 
 ![image](https://user-images.githubusercontent.com/7264464/119735095-3a524d00-be52-11eb-92e7-b3e65f16b639.png)
 
+If the diagnosis fails, a list of tips is presented to the user:
 
+<img width="340" alt="Captura de Tela 2021-05-28 às 12 16 44" src="https://user-images.githubusercontent.com/7264464/120005905-b9f52e80-bfae-11eb-8b1b-b755d60e5bf6.png">
 
 As it is a PWA it can be download to the smartphone:
 
